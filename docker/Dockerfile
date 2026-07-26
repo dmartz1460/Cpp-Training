@@ -28,6 +28,7 @@ ARG ENTRYPOINT_SCRIPT_COMMAND
 
 # Copy the entrypoint script into the docker container
 COPY --chmod=0755 ${ENTRYPOINT_SCRIPT_COMMAND} /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Set the default command to run when the container starts
 ENTRYPOINT ["entrypoint.sh"]
