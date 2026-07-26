@@ -2,14 +2,15 @@
 
 # Build script to build the project and run code complexity analysis using lizard.
 
-# Make build directory inside the project's folder
-mkdir build && cd build
+# Set the target directory to the first argument passed to the script
+TARGET_DIR=$1
 
-# Build the project using CMake
-cmake ..
-cmake --build .
-ctest --output-on-failure
-cd ..
+git config --global --add safe.directory /home/docker/Cpp-Training/build/_deps/googletest-src
+# Pass the argument to CMake using the -D flag
+cmake -S . -B build -DTARGET_PROJECT=$TARGET_DIR
+
+# Build the project
+cmake --build build
 
 # Run code complexity analysis using lizard on the project's source code
 echo '=== Running Code Complexity Analysis ==='

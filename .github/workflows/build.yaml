@@ -10,8 +10,7 @@ on:
         description: 'Name of the executable to run'
         type: choice
         options: 
-          - my_executable
-          - another_executable
+          - Custom_Vector
         required: true
 
 jobs:

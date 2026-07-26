@@ -6,31 +6,38 @@ services:
 
     build:
 
+      # Define the build context and Dockerfile path for the C++ project image
       context: ${CONTEXT_PATH}
 
       dockerfile: ${DOCKERFILE_PATH}
 
+    # Define the image name for the C++ project image
     image: cpp-build-image
 
+    # Set pull policy to build to ensure the image is built locally and not pulled from a registry
     pull_policy: build
 
-  my_executable:
+  Custom_Vector:
 
+    # Define the image to use for the C++ project executable
     image: cpp-build-image
 
     # Specify service profile to link to the executable service
     profiles:
-      - my_executable
+      - Custom_Vector
 
     # Never attempt to pull the image from the registry to force a local rebuild 
     pull_policy: never
 
     # Define volumes to mount the project's path from the host to the container
     volumes:
-      - ${HOST_PATH}:${CONT_PATH}/my_executable
+      - ${HOST_PATH}:${CONT_PATH}/Cpp-Training
 
     # Set the working directory to the project's path inside the container
-    working_dir: ${CONT_PATH}/my_executable
+    working_dir: ${CONT_PATH}/Cpp-Training
 
-    # Specify commands to execute inside the container to build and run the project's executable
-    command: ${BUILD_SCRIPT_COMMAND}
+    # Specify the entrypoint script to execute inside the container
+    entrypoint: ${ENTRYPOINT_SCRIPT_COMMAND}
+
+    # Specfy the command to execute inside the container to build and run the project's executable
+    command: ${BUILD_SCRIPT_COMMAND} Custom_Vector

@@ -34,6 +34,11 @@ FetchContent_MakeAvailable(googletest)
 # Enable CTest
 enable_testing()
 
-# --- 3. Include Projects ---
-add_subdirectory(01_Custom_Vector)
-# add_subdirectory(02_RPG_Inventory) # Uncomment as you progress
+# --- 3. Include Target Project ---
+# Check if TARGET_PROJECT was provided via the command line
+if(DEFINED TARGET_PROJECT)
+    # Add only the specific project directory passed from the script
+    add_subdirectory(${TARGET_PROJECT})
+else()
+    message(WARNING "No TARGET_PROJECT specified. Nothing to build.")
+endif()
