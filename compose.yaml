@@ -1,0 +1,10 @@
+# This Docker Compose file includes another docker compose file.
+#
+# Functionality:
+#     - This file references a compose file located in a submodule.
+#     - It allows users to run docker compose commands defined in the submodule
+#       directly from the root of this repository.
+
+# Include the docker compose file location in the submodule
+include: 
+  - path: ./docker/compose.yaml

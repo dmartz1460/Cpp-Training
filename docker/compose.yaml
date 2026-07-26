@@ -1,0 +1,36 @@
+# Docker compose services defining build service and run services corresponding to each C++ project
+
+services:
+
+  docker-image:
+
+    build:
+
+      context: ${CONTEXT_PATH}
+
+      dockerfile: ${DOCKERFILE_PATH}
+
+    image: cpp-build-image
+
+    pull_policy: build
+
+  my_executable:
+
+    image: cpp-build-image
+
+    # Specify service profile to link to the executable service
+    profiles:
+      - my_executable
+
+    # Never attempt to pull the image from the registry to force a local rebuild 
+    pull_policy: never
+
+    # Define volumes to mount the project's path from the host to the container
+    volumes:
+      - ${HOST_PATH}:${CONT_PATH}/my_executable
+
+    # Set the working directory to the project's path inside the container
+    working_dir: ${CONT_PATH}/my_executable
+
+    # Specify commands to execute inside the container to build and run the project's executable
+    command: ${BUILD_SCRIPT_COMMAND}
